@@ -3,8 +3,8 @@ import 'package:orchestrate/core/routes/app_routes.dart';
 import 'package:orchestrate/core/services/firebase_auth_service.dart';
 import 'package:orchestrate/core/themes/app_text_styles.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Home Screen',
+                'Dashboard Screen',
                 style: AppTextStyles.f26w600Black,
               ),
               IconButton(

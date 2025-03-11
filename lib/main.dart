@@ -1,3 +1,4 @@
+import 'package:orchestrate/core/constants/app_constants.dart';
 import 'package:orchestrate/core/responsive/size_config.dart';
 import 'package:orchestrate/core/routes/app_routes.dart';
 import 'package:orchestrate/core/themes/app_colors.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:orchestrate/core/utils/shared_prefs.dart';
+import 'package:orchestrate/features/authentication/controllers/login_provider.dart';
+import 'package:orchestrate/features/authentication/controllers/signup_provider.dart';
 import 'package:orchestrate/features/splash/controllers/splash_provider.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -44,10 +47,16 @@ class MainApp extends StatelessWidget {
                     ChangeNotifierProvider<SplashProvider>(
                       create: (_) => SplashProvider(),
                     ),
+                    ChangeNotifierProvider<LoginProvider>(
+                      create: (_) => LoginProvider(),
+                    ),
+                    ChangeNotifierProvider<SignupProvider>(
+                      create: (_) => SignupProvider(),
+                    ),
                   ],
                   child: MaterialApp(
                     initialRoute: '/',
-                    title: 'Orchestrate',
+                    title: Constants.appName,
                     debugShowCheckedModeBanner: false,
                     theme: ThemeData(fontFamily: 'SF-Pro-Rounded'),
                     onGenerateRoute: GenerateRoute.generateRoute,

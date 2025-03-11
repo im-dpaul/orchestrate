@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orchestrate/core/constants/app_enums.dart';
 import 'package:orchestrate/core/constants/app_extensions.dart';
 import 'package:orchestrate/core/routes/app_routes.dart';
+import 'package:orchestrate/core/themes/app_colors.dart';
 import 'package:orchestrate/core/themes/app_text_styles.dart';
 import 'package:orchestrate/features/splash/controllers/splash_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
         if (!mounted) return;
         role == UserType.admin.value
-            ? Navigator.pushReplacementNamed(context, AppRoutes.homeScreen)
+            ? Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen)
             : role == UserType.user.value
                 ? Navigator.pushReplacementNamed(context, AppRoutes.homeScreen)
                 : Navigator.pushReplacementNamed(
@@ -47,7 +48,9 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
           child: Text(
             'Orchestrate - EMS',
-            style: AppTextStyles.f26w600Black,
+            style: AppTextStyles.f26w600Black.copyWith(
+              color: AppColors.primaryBlue,
+            ),
           ),
         ),
       ),

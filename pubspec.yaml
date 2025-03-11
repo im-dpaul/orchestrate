@@ -1,7 +1,7 @@
 name: orchestrate
 description: "A new Flutter project."
-publish_to: 'none'
-version: 0.1.0
+publish_to: "none"
+version: 0.2.0
 
 environment:
   sdk: 3.5.3
@@ -11,13 +11,21 @@ dependencies:
     sdk: flutter
 
   # Firebase Config
-  firebase_core: 3.11.0
+  firebase_core: 3.12.0
+  firebase_auth: 5.5.0
+  cloud_firestore: 5.6.4
 
   # Responsiveness & screenutil
   flutter_screenutil: 5.9.3
 
+  # Custom loader
+  loading_animation_widget: 1.3.0
+
   # State Management
   provider: 6.1.2
+
+  # OTP input field
+  pinput: 5.0.1
 
   # Local storage
   shared_preferences: 2.5.2

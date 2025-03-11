@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orchestrate/core/constants/app_enums.dart';
 import 'package:orchestrate/core/constants/image_path.dart';
 import 'package:orchestrate/core/constants/strings.dart';
 import 'package:orchestrate/core/responsive/size_extension.dart';
@@ -123,9 +124,9 @@ class CreateResetPasswordScreen extends StatelessWidget {
                           bool registered =
                               await signupProvider.onSubmitPasswordTap();
                           if (context.mounted && registered) {
-                            provider.isRegisterUser
+                            provider.userType == UserType.admin
                                 ? Navigator.pushReplacementNamed(
-                                    context, AppRoutes.roleSelectionScreen)
+                                    context, AppRoutes.dashboardScreen)
                                 : Navigator.pushReplacementNamed(
                                     context, AppRoutes.homeScreen);
                           }

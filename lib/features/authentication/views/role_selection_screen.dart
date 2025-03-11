@@ -7,6 +7,7 @@ import 'package:orchestrate/core/routes/app_routes.dart';
 import 'package:orchestrate/core/themes/app_colors.dart';
 import 'package:orchestrate/core/themes/app_text_styles.dart';
 import 'package:orchestrate/features/authentication/controllers/signup_provider.dart';
+import 'package:orchestrate/widgets/appbar/common_appbar.dart';
 import 'package:orchestrate/widgets/buttons/app_button.dart';
 import 'package:orchestrate/widgets/cards/user_role_card.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,11 @@ class RoleSelectionScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CommonAppBar(
+                    onBackButtonTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                   SizedBox(
                     height: 300.h,
                     child: Center(
@@ -83,7 +89,7 @@ class RoleSelectionScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(height: 72.h),
+                  SizedBox(height: 40.h),
                   Consumer<SignupProvider>(
                     builder:
                         (BuildContext context, SignupProvider provider, _) {
@@ -102,14 +108,11 @@ class RoleSelectionScreen extends StatelessWidget {
                     builder:
                         (BuildContext context, SignupProvider provider, _) {
                       return AppButton(
-                        title: Strings.finish,
+                        title: Strings.continueText,
                         isLoading: provider.isLoading,
-                        onButtonTap: () async {
-                          bool success = await signupProvider.onFinishTap();
-                          if (success && context.mounted) {
-                            Navigator.pushReplacementNamed(
-                                context, AppRoutes.homeScreen);
-                          }
+                        onButtonTap: () {
+                          Navigator.pushNamed(
+                              context, AppRoutes.createResetPasswordScreen);
                         },
                       );
                     },

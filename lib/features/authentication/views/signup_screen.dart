@@ -126,7 +126,7 @@ class SignupScreen extends StatelessWidget {
                           if (isValidated) {
                             if (context.mounted) {
                               Navigator.pushNamed(
-                                  context, AppRoutes.createResetPasswordScreen);
+                                  context, AppRoutes.roleSelectionScreen);
                             }
                           }
                         },

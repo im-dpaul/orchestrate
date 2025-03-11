@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orchestrate/core/constants/strings.dart';
+import 'package:orchestrate/core/models/user_model.dart';
+import 'package:orchestrate/core/services/user_service.dart';
 import 'package:orchestrate/core/utils/input_validators.dart';
 import 'package:orchestrate/features/authentication/repository/auth_repository.dart';
 
@@ -11,6 +13,7 @@ class LoginProvider with ChangeNotifier {
   // ------------------------ Signin Screen ------------------------
 
   bool showPassword = true;
+  bool isAdmin = false;
 
   String? emailErrorText;
   String? passwordErrorText;
@@ -45,6 +48,15 @@ class LoginProvider with ChangeNotifier {
   void updateAuthErrorText({String? message}) {
     authErrorText = message;
     notifyListeners();
+  }
+
+  Future<bool> _getUserRole({required String userId}) async {
+    UserModel? user = await UserService().getUserById(userId: userId);
+
+    if ((user?.email ?? "").isNotEmpty) {
+      return user?.isAdmin ?? false;
+    }
+    return false;
   }
 
   Future<bool> onLoginButtonTap() async {
@@ -82,6 +94,7 @@ class LoginProvider with ChangeNotifier {
           await _authRepository.loginUser(email: email, password: password);
       if ((user?.email ?? "").isNotEmpty) {
         userLoggedIn = true;
+        isAdmin = await _getUserRole(userId: user?.uid ?? "");
       }
     } catch (error) {
       updateAuthErrorText(message: error.toString());

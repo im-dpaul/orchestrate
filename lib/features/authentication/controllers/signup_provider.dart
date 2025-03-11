@@ -177,6 +177,32 @@ class SignupProvider with ChangeNotifier {
     return validated;
   }
 
+  Future<bool> _addUser() async {
+    final String userId = registerdUser?.uid ?? "";
+    final String name = nameController.text;
+    final String email = registerdUser?.email ?? "";
+    final String phoneNumber = newMobileController.text;
+    final bool isAdmin = userType == UserType.admin;
+
+    UserModel user = UserModel(
+      userId: userId,
+      name: name,
+      phoneNumber: phoneNumber,
+      email: email,
+      isAdmin: isAdmin,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+
+    try {
+      await _userRepository.createUser(user);
+      return true;
+    } catch (e) {
+      updateFinishErrorText(message: e.toString());
+    }
+    return false;
+  }
+
   Future<bool> onSubmitPasswordTap() async {
     isLoading = true;
     notifyListeners();
@@ -202,9 +228,14 @@ class SignupProvider with ChangeNotifier {
       updateSubmitPasswordErrorText(message: e.toString());
     }
 
+    bool userCreated = false;
+    if (registered) {
+      userCreated = await _addUser();
+    }
+
     isLoading = false;
     notifyListeners();
-    return registered;
+    return registered && userCreated;
   }
 
   // ------------------------ OTP Screen ------------------------
@@ -292,41 +323,11 @@ class SignupProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> _addUser() async {
-    final String userId = registerdUser?.uid ?? "";
-    final String name = nameController.text;
-    final String email = registerdUser?.email ?? "";
-    final String phoneNumber = newMobileController.text;
-    final bool isAdmin = userType == UserType.admin;
-
-    UserModel user = UserModel(
-      userId: userId,
-      name: name,
-      phoneNumber: phoneNumber,
-      email: email,
-      isAdmin: isAdmin,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
-
-    try {
-      await _userRepository.createUser(user);
-      return true;
-    } catch (e) {
-      updateFinishErrorText(message: e.toString());
-    }
-    return false;
-  }
-
-  Future<bool> onFinishTap() async {
+  Future<void> onFinishTap() async {
     isLoading = true;
     notifyListeners();
 
-    bool userCreated = false;
-    userCreated = await _addUser();
-
     isLoading = false;
     notifyListeners();
-    return userCreated;
   }
 }

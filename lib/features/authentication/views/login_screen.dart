@@ -114,11 +114,12 @@ class LoginScreen extends StatelessWidget {
                         onButtonTap: () async {
                           bool isAuthenticated =
                               await loginProvider.onLoginButtonTap();
-                          if (isAuthenticated) {
-                            if (context.mounted) {
-                              Navigator.pushReplacementNamed(
-                                  context, AppRoutes.homeScreen);
-                            }
+                          if (isAuthenticated && context.mounted) {
+                            provider.isAdmin
+                                ? Navigator.pushReplacementNamed(
+                                    context, AppRoutes.dashboardScreen)
+                                : Navigator.pushReplacementNamed(
+                                    context, AppRoutes.homeScreen);
                           }
                         },
                       );

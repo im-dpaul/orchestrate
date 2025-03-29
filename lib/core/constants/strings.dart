@@ -50,4 +50,9 @@ class Strings {
   static const String invalidMobile = "Please enter a 10-digit mobile number.";
   static const String invalidOTP =
       "Invalid OTP! Please enter a 6-digit number.";
+
+  static const String home = "Home";
+  static const String events = "Events";
+  static const String settings = "Settings";
+  static const String search = "Search";
 }
